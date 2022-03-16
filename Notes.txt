@@ -11,6 +11,7 @@ part 2:
 - When we start typing in the title input field we get an error that the typpe number is unctrolled, because the way we called the SUF(State Updating Function) is not correct, it replaces the old state obj with the new state obj whic only contains the title key but not the amount key.
 - It is out responsibilty to make sure that we don't lose any data with state updating so we will restroe the old value in the updated state.
 - To guarantee that we always have the latest state in the SUF, we can pass an anonymous function to SUF with the previosState as the parameter. //-- I have calles the SUF in title and amount input fields to differentiate--//. 
+- MULTIPLE STATES: Rather then making our a state an object and aking care that it never changes with the new State Update even if we only want to change one kye/one state, we can have multiple states using useState() seperately for each state.
 
 2. USE EFFECT
 

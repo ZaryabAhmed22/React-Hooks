@@ -4,7 +4,9 @@ import Card from "../UI/Card";
 import "./IngredientForm.css";
 
 const IngredientForm = React.memo((props) => {
-  const [initialValue, setInitialValue] = useState({ title: "", amount: "" });
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+
   const submitHandler = (event) => {
     event.preventDefault();
     // ...
@@ -19,13 +21,8 @@ const IngredientForm = React.memo((props) => {
             <input
               type="text"
               id="title"
-              value={initialValue.title} //--2 way binding
-              onChange={(event) =>
-                setInitialValue({
-                  title: event.target.value,
-                  amount: initialValue.amount, //-- Restoring the value on State update so it is not lost
-                })
-              }
+              value={enteredTitle} //--2 way binding
+              onChange={(event) => setEnteredTitle(event.target.value)}
             />
           </div>
           <div className="form-control">
@@ -33,14 +30,8 @@ const IngredientForm = React.memo((props) => {
             <input
               type="number"
               id="amount"
-              value={initialValue.amount} //--2 way binding
-              onChange={(event) => {
-                const newAmount = event.target.value; //-- to use event.target to be recreated on every key stroke.--//
-                setInitialValue((prevInputSate) => ({
-                  amount: newAmount,
-                  title: prevInputSate.title, //-- Restoring the value on State update so it is not lost
-                }));
-              }}
+              value={enteredAmount} //--2 way binding
+              onChange={(event) => setEnteredAmount(event.target.value)}
             />
           </div>
           <div className="ingredient-form__actions">
@@ -53,3 +44,17 @@ const IngredientForm = React.memo((props) => {
 });
 
 export default IngredientForm;
+
+//-- ALTERNATIVE WAY
+/*
+               const [initialValue, setInitialValue] = useState({ title: "", amount: "" });
+
+              value={initialValue.amount} //--2 way binding
+              onChange={(event) => {
+                const newAmount = event.target.value; //-- to use event.target to be recreated on every key stroke.--//
+                setInitialValue((prevInputSate) => ({
+                  amount: newAmount,
+                  title: prevInputSate.title, //-- Restoring the value on State update so it is not lost
+                }));
+              }}
+*/
