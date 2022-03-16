@@ -8,10 +8,22 @@ function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
 
   const addIngredientHandler = (ingredient) => {
-    setUserIngredients((prevIngredients) => [
-      ...prevIngredients, //-- taking all the previos ingredients by using the spread operator.
-      { id: Math.random().toString(), ...ingredient }, //adding the new ingredient and its id and then using the spread operator to take out the key value pair out of the array.
-    ]);
+    fetch("https://hooks-e7354-default-rtdb.firebaseio.com/ingredients.json", {
+      method: "POST",
+      body: JSON.stringify(ingredient),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseData) => {
+        setUserIngredients((prevIngredients) => [
+          ...prevIngredients, //-- taking all the previos ingredients by using the spread operator.
+          { id: responseData.name, ...ingredient }, //adding the new ingredient and its id and then using the spread operator to take out the key value pair out of the array.
+        ]);
+      });
+
+    //fetch returns a promise
   };
 
   const removeIngredientHandler = (ingredientId) => {

@@ -20,5 +20,14 @@ part 2:
 3. LIFTING THE STATE UP:
 - So, we have defined the state in a component and we have to make it usable in other components as well to make it work. 
 - This is done by passing pointers as props to the component (where the component is used/rendered in its parent component)
+
+4. SENDING HTTP REQUESTS:
+- Http requests can be send by built in fetch function.
+- The first parameter takes the url of the API
+- The second parameter is for the configuration if we're using a backend.
+- The fectch return a promise.
+- this promise is passed into a then block  where it is converted to JS object and returned //--return response.json()
+- The returned data is then passed in another then block so that it can be used.
+
 2. USE EFFECT
 
