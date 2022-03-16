@@ -13,5 +13,12 @@ part 2:
 - To guarantee that we always have the latest state in the SUF, we can pass an anonymous function to SUF with the previosState as the parameter. //-- I have calles the SUF in title and amount input fields to differentiate--//. 
 - MULTIPLE STATES: Rather then making our a state an object and aking care that it never changes with the new State Update even if we only want to change one kye/one state, we can have multiple states using useState() seperately for each state.
 
+2. RULES OF HOOKS
+- We can use hooks only in functional components or custom hooks.
+- We cannot define our state at any other level, only define the state on the root level.
+
+3. LIFTING THE STATE UP:
+- So, we have defined the state in a component and we have to make it usable in other components as well to make it work. 
+- This is done by passing pointers as props to the component (where the component is used/rendered in its parent component)
 2. USE EFFECT
 
