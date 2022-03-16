@@ -1,6 +1,12 @@
 --- REACT HOOKS ---
 
 1. USE STATE
+- Use states returns 2 elements, the first element is the current State snapshot and thes econd is the state updating function.
+- React saves the current state of and does not affects by the re-rendering of the component.
+- The state state updating function contains the logic on which the state is updated and then the state is saved by React. 
+- So we store the useState() with 2 constants, first one is ofcourse the current state snapshot and the second is the State Updating Function.
+- We pass the first constant in the place where we want to use the state snapshot and this is known as 2 Way Binding. That we did with giving the built in value prop(in out case)
+- For updating the state we call the function where we want to changes the state, most commonly in events, in our case we did it by passing the State Updating Function in the built onChange prop. 
 
 2. USE EFFECT
 
