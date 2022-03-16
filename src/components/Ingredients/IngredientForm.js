@@ -4,7 +4,7 @@ import Card from "../UI/Card";
 import "./IngredientForm.css";
 
 const IngredientForm = React.memo((props) => {
-  const [initialValue, setInitalValue] = useState({ title: "", amount: "" });
+  const [initialValue, setInitialValue] = useState({ title: "", amount: "" });
   const submitHandler = (event) => {
     event.preventDefault();
     // ...
@@ -19,9 +19,12 @@ const IngredientForm = React.memo((props) => {
             <input
               type="text"
               id="title"
-              value={initialValue.title}
+              value={initialValue.title} //--2 way binding
               onChange={(event) =>
-                setInitalValue({ title: event.target.value })
+                setInitialValue({
+                  title: event.target.value,
+                  amount: initialValue.amount, //-- Restoring the value on State update so it is not lost
+                })
               }
             />
           </div>
@@ -30,10 +33,14 @@ const IngredientForm = React.memo((props) => {
             <input
               type="number"
               id="amount"
-              value={initialValue.amount}
-              onChange={(event) =>
-                setInitalValue({ amount: event.target.value })
-              }
+              value={initialValue.amount} //--2 way binding
+              onChange={(event) => {
+                const newAmount = event.target.value; //-- to use event.target to be recreated on every key stroke.--//
+                setInitialValue((prevInputSate) => ({
+                  amount: newAmount,
+                  title: prevInputSate.title, //-- Restoring the value on State update so it is not lost
+                }));
+              }}
             />
           </div>
           <div className="ingredient-form__actions">
