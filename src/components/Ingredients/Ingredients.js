@@ -25,6 +25,9 @@ function Ingredients() {
       });
   }, []);
 
+  const filteredIngredientsHandler = (filteredIngredient) => {
+    setUserIngredients(filteredIngredient);
+  };
   //Function for adding ingredients
   const addIngredientHandler = (ingredient) => {
     fetch(
@@ -59,7 +62,7 @@ function Ingredients() {
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
-        <Search />
+        <Search onLoadIngredients={filteredIngredientsHandler} />
         <IngredientList
           ingredients={userIngredients}
           onRemoveItem={removeIngredientHandler}

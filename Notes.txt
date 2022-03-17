@@ -37,3 +37,5 @@ part 2:
 - useEffect() hooks uses 2 parameters, the first is the function logic, and the second is the dependencies array. dependenciesare variables on which the hook depends, means the hooks runs whenever that dependency changes.
 - //--NOTE--// >> SUF are never changed by React itself, hence they are not used as dependencies
 - If we don't have any external variable on which the function depends, then we pass an empty array as the 2nd parameter to break the infinite loop. 
+
+- LIFTING THE STATE UP: 
