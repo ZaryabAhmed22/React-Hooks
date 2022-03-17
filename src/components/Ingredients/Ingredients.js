@@ -8,7 +8,9 @@ function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
 
   useEffect(() => {
-    fetch("https://hooks-e7354-default-rtdb.firebaseio.com/ingredients.json")
+    fetch(
+      "https://custom-react-hooks-5cf00-default-rtdb.firebaseio.com/hooks.json"
+    )
       .then((response) => response.json())
       .then((responseData) => {
         const loadedIngredients = [];
@@ -25,11 +27,14 @@ function Ingredients() {
 
   //Function for adding ingredients
   const addIngredientHandler = (ingredient) => {
-    fetch("https://hooks-e7354-default-rtdb.firebaseio.com/ingredients.json", {
-      method: "POST",
-      body: JSON.stringify(ingredient),
-      headers: { "Content-Type": "application/json" },
-    })
+    fetch(
+      "https://custom-react-hooks-5cf00-default-rtdb.firebaseio.com/hooks.json",
+      {
+        method: "POST",
+        body: JSON.stringify(ingredient),
+        headers: { "Content-Type": "application/json" },
+      }
+    )
       .then((response) => {
         return response.json();
       })
