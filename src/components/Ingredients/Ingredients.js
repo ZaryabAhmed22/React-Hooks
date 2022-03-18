@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -7,27 +7,28 @@ import Search from "./Search";
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
 
-  useEffect(() => {
-    fetch(
-      "https://custom-react-hooks-5cf00-default-rtdb.firebaseio.com/hooks.json"
-    )
-      .then((response) => response.json())
-      .then((responseData) => {
-        const loadedIngredients = [];
-        for (const key in responseData) {
-          loadedIngredients.push({
-            id: key,
-            title: responseData[key].title,
-            amount: responseData[key].amount,
-          });
-        }
-        setUserIngredients(loadedIngredients);
-      });
-  }, []);
+  //-- Don't need it anymore since we are sending request using the search logic
+  // useEffect(() => {
+  //   fetch(
+  //     "https://custom-react-hooks-5cf00-default-rtdb.firebaseio.com/hooks.json"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       const loadedIngredients = [];
+  //       for (const key in responseData) {
+  //         loadedIngredients.push({
+  //           id: key,
+  //           title: responseData[key].title,
+  //           amount: responseData[key].amount,
+  //         });
+  //       }
+  //       setUserIngredients(loadedIngredients);
+  //     });
+  // }, []);
 
-  const filteredIngredientsHandler = (filteredIngredient) => {
+  const filteredIngredientsHandler = useCallback((filteredIngredient) => {
     setUserIngredients(filteredIngredient);
-  };
+  }, []);
   //Function for adding ingredients
   const addIngredientHandler = (ingredient) => {
     fetch(

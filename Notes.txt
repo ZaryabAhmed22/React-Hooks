@@ -38,4 +38,9 @@ part 2:
 - //--NOTE--// >> SUF are never changed by React itself, hence they are not used as dependencies
 - If we don't have any external variable on which the function depends, then we pass an empty array as the 2nd parameter to break the infinite loop. 
 
+6. USE CALLBACK:
+- Use call back stops afunction from re-rendering on every render cycle of the component, it will not make a new JS function on every render cycle.
+
+
+
 - LIFTING THE STATE UP: 

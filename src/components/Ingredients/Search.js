@@ -4,7 +4,8 @@ import Card from "../UI/Card";
 import "./Search.css";
 
 const Search = React.memo((props) => {
-  const { onLoadIngredients } = props; //taking out onLoadIngredients function from the props and passing it as dependency
+  const { onLoadIngredients } = props; //taking out onLoadIngredients function from the props and passing it as dependency, it will not solve the problem at first, it will create an infinite loop because it updates the state in the inredients.js
+  //>> to solve this problem we will use useCallback
   const [enteredFilter, setEnteredFilter] = useState("");
   useEffect(() => {
     //filter using firebase query params
@@ -30,7 +31,7 @@ const Search = React.memo((props) => {
         //...logic of what we have to do with this data
         props.onLoadIngredients(loadedIngredients);
       });
-  }, [enteredFilter]); //>> Only enteredFIlter as a dependency gives an error becuase props are also a dependency, since we can't put props as the dependency because it will mean that if any props changes, or any new props is given to the component the useEffect will run which we dont want, solviong this problem on top with object destructuring
+  }, [enteredFilter, onLoadIngredients]); //>> Only enteredFIlter as a dependency gives an error becuase props are also a dependency, since we can't put props as the dependency because it will mean that if any props changes, or any new props is given to the component the useEffect will run which we dont want, solviong this problem on top with object destructuring
 
   return (
     <section className="search">
