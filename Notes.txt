@@ -47,4 +47,9 @@ part 2:
 - useRef is just like a checkpost, we can create a ref with simple creating a variable and calling useRef, and then point it to a DOM element using ref prop.
 - If we console the ref, it will give an object with current as the key, and a value, the value is the DOM element.
 
+8. CATCHING ERRORS:
+- Errors are caught using .catch block after either, try block or then block in the end.
+- we use error as the parameter and use that error.
+- BATCHING:
+
 - LIFTING THE STATE UP: 

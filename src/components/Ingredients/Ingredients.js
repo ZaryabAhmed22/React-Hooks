@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
+import ErrorModal from "../UI/ErrorModal";
 import Search from "./Search";
 
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   //-- Don't need it anymore since we are sending request using the search logic
   // useEffect(() => {
   //   fetch(
@@ -61,16 +63,29 @@ function Ingredients() {
       {
         method: "DELETE",
       }
-    ).then((response) => {
-      setIsLoading(false);
-      setUserIngredients((prevIng) =>
-        prevIng.filter((ing) => ing.id !== ingredientId)
-      );
-    });
+    )
+      .then((response) => {
+        setIsLoading(false);
+        setUserIngredients((prevIng) =>
+          prevIng.filter((ing) => ing.id !== ingredientId)
+        );
+      })
+      .catch((error) => {
+        setError(error.message);
+        isLoading(false);
+      });
   };
+
+  //-- creating a function to clear the error
+  const clearError = () => {
+    setError(null);
+    //isLoading(false); //>> stoping the loader but it won't work
+  };
+
   console.log(userIngredients);
   return (
     <div className="App">
+      {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
       <IngredientForm
         onAddIngredient={addIngredientHandler}
         loading={isLoading}
