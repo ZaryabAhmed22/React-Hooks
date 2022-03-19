@@ -9,7 +9,9 @@ const Search = React.memo((props) => {
   const [enteredFilter, setEnteredFilter] = useState("");
   const inputRef = useRef();
   useEffect(() => {
-    //seting a timeout after every key stoke, means a request will be sent after every 500 ms the user presses the key.
+    // console.log(inputRef);
+
+    //--seting a timeout after every key stoke, means a request will be sent after every 500 ms the user presses the key.
     setTimeout(() => {
       //-- checking that if the entered filter is same as the enter input 500 ms ago, if it's same it will send a request. like if i am searching mangoes, and typed mang, it will not send the request untill the word is complete.
       //>> doing this by using useRef()

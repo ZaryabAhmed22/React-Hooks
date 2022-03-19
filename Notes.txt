@@ -41,7 +41,9 @@ part 2:
 6. USE CALLBACK:
 - Use call back stops afunction from re-rendering on every render cycle of the component, it will not make a new JS function on every render cycle.
 
-7. USE REDUCER:
-- We will use the useReducer to solve the poblem of sending request on every key stroke in the search-bar.
+7. USE REF:
+- We will use the useRef to solve the poblem of sending request on every key stroke in the search-bar.
+- useRef is just like a checkpost, we can create a ref with simple creating a variable and calling useRef, and then point it to a DOM element using ref prop.
+- If we console the ref, it will give an object with current as the key, and a value, the value is the DOM element.
 
 - LIFTING THE STATE UP: 
