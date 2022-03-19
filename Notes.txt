@@ -36,7 +36,8 @@ part 2:
 - Why do we need useEffect()? >> when we send and http request and update the state using the data(from the promise), it updates the state, so that the component renders, this trigers the fetch again, the whole cycle repeats and keeps on repeating. To avoid this infinite loop, we pass the fetch logic into useEffect() hook. 
 - useEffect() hooks uses 2 parameters, the first is the function logic, and the second is the dependencies array. dependenciesare variables on which the hook depends, means the hooks runs whenever that dependency changes.
 - //--NOTE--// >> SUF are never changed by React itself, hence they are not used as dependencies
-- If we don't have any external variable on which the function depends, then we pass an empty array as the 2nd parameter to break the infinite loop. 
+- If we don't have any external variable on which the function depends, then we pass an empty array as the 2nd parameter to break the infinite loop.
+- CLEANING UP USE EFFECT: the useEffect returns a cleanup function in the end, it's an anonymous function. It cleans up the old effect before firing the new effect. In our case we have passed the clearTimeout() function so that the timer is cleared before the new useEffect().
 
 6. USE CALLBACK:
 - Use call back stops afunction from re-rendering on every render cycle of the component, it will not make a new JS function on every render cycle.

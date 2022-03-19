@@ -12,7 +12,7 @@ const Search = React.memo((props) => {
     // console.log(inputRef);
 
     //--seting a timeout after every key stoke, means a request will be sent after every 500 ms the user presses the key.
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       //-- checking that if the entered filter is same as the enter input 500 ms ago, if it's same it will send a request. like if i am searching mangoes, and typed mang, it will not send the request untill the word is complete.
       //>> doing this by using useRef()
       //>> enteredFilter is not the current input but the inputed fired 500ms ago
@@ -45,6 +45,11 @@ const Search = React.memo((props) => {
           });
       }
     }, 500);
+
+    //useEffect cleanup
+    return () => {
+      clearTimeout(timer);
+    };
   }, [enteredFilter, onLoadIngredients, inputRef]); //>> Only enteredFIlter as a dependency gives an error becuase props are also a dependency, since we can't put props as the dependency because it will mean that if any props changes, or any new props is given to the component the useEffect will run which we dont want, solviong this problem on top with object destructuring
 
   return (
