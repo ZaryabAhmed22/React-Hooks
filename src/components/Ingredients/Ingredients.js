@@ -6,7 +6,7 @@ import Search from "./Search";
 
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   //-- Don't need it anymore since we are sending request using the search logic
   // useEffect(() => {
   //   fetch(
@@ -31,6 +31,7 @@ function Ingredients() {
   }, []);
   //Function for adding ingredients
   const addIngredientHandler = (ingredient) => {
+    setIsLoading(true);
     fetch(
       "https://custom-react-hooks-5cf00-default-rtdb.firebaseio.com/hooks.json",
       {
@@ -40,6 +41,7 @@ function Ingredients() {
       }
     )
       .then((response) => {
+        setIsLoading(false);
         return response.json();
       })
       .then((responseData) => {
@@ -53,12 +55,14 @@ function Ingredients() {
   };
 
   const removeIngredientHandler = (ingredientId) => {
+    setIsLoading(true);
     fetch(
       `https://custom-react-hooks-5cf00-default-rtdb.firebaseio.com/hooks/${ingredientId}.json`,
       {
         method: "DELETE",
       }
     ).then((response) => {
+      setIsLoading(false);
       setUserIngredients((prevIng) =>
         prevIng.filter((ing) => ing.id !== ingredientId)
       );
@@ -67,7 +71,10 @@ function Ingredients() {
   console.log(userIngredients);
   return (
     <div className="App">
-      <IngredientForm onAddIngredient={addIngredientHandler} />
+      <IngredientForm
+        onAddIngredient={addIngredientHandler}
+        loading={isLoading}
+      />
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
