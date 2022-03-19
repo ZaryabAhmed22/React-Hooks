@@ -52,4 +52,15 @@ part 2:
 - we use error as the parameter and use that error.
 - BATCHING:
 
+9. USE REDUCER:
+- useReducer is used to manage multiple states together which are closely related.
+- Or when a state is dependent on other state.
+- 1st STEP: we create a reducer function that we pass as a parameter in useReducer().
+- 2nd STEP: Utilise it using useReducer. useReducer takes 2 parameter, first is  the reducer function we created in STEP 1.
+- useReducer return 2 thing  which we use by array destructuring, 
+1) State
+2) Dispatch (just like setState in useState()).
+- The dispatch function disapatches different actions using a if/else block or switch/case.
+
+
 - LIFTING THE STATE UP: 

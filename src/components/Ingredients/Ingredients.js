@@ -1,12 +1,30 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
 import ErrorModal from "../UI/ErrorModal";
 import Search from "./Search";
 
+// -- STEP 1: Creating the Reducer Function
+const ingredientReducer = (currentState, actions) => {
+  switch (actions.type) {
+    case "SET":
+      return actions.ingredients;
+
+    case "ADD":
+      return [...currentState, actions.ingredient];
+
+    case "DELETE":
+      return currentState.filter((ing) => ing.id !== actions.id);
+
+    default:
+      throw new Error("Should not get there!");
+  }
+};
+
 function Ingredients() {
-  const [userIngredients, setUserIngredients] = useState([]);
+  const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
+  //const [userIngredients, setUserIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   //-- Don't need it anymore since we are sending request using the search logic
@@ -29,7 +47,8 @@ function Ingredients() {
   // }, []);
 
   const filteredIngredientsHandler = useCallback((filteredIngredient) => {
-    setUserIngredients(filteredIngredient);
+    //setUserIngredients(filteredIngredient);
+    dispatch({ type: "SET", ingredients: filteredIngredient });
   }, []);
   //Function for adding ingredients
   const addIngredientHandler = (ingredient) => {
@@ -47,10 +66,14 @@ function Ingredients() {
         return response.json();
       })
       .then((responseData) => {
-        setUserIngredients((prevIngredients) => [
-          ...prevIngredients, //-- taking all the previos ingredients by using the spread operator.
-          { id: responseData.name, ...ingredient }, //adding the new ingredient and its id and then using the spread operator to take out the key value pair out of the array.
-        ]);
+        // setUserIngredients((prevIngredients) => [
+        //   ...prevIngredients, //-- taking all the previos ingredients by using the spread operator.
+        //   { id: responseData.name, ...ingredient }, //adding the new ingredient and its id and then using the spread operator to take out the key value pair out of the array.
+        // ]);
+        dispatch({
+          type: "ADD",
+          ingredient: { id: responseData.name, ...ingredient },
+        });
       });
 
     //fetch returns a promise
@@ -66,9 +89,10 @@ function Ingredients() {
     )
       .then((response) => {
         setIsLoading(false);
-        setUserIngredients((prevIng) =>
-          prevIng.filter((ing) => ing.id !== ingredientId)
-        );
+        // setUserIngredients((prevIng) =>
+        //   prevIng.filter((ing) => ing.id !== ingredientId)
+        // );
+        dispatch({ type: "DELETE", id: ingredientId });
       })
       .catch((error) => {
         setError(error.message);
